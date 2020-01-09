@@ -20,7 +20,7 @@ for (j = 0; j < 800; j+=160) {
     ctx.moveTo(0,j);
     ctx.lineTo(800,j);
     ctx.stroke();
-
+}
 function generateRandomNumb(min,max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
