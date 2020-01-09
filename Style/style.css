@@ -1,0 +1,8 @@
+body {
+    font-size: 2rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#platno{
+    border: 1px solid black;
+    margin-left: 20%;
+}
