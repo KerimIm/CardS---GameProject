@@ -1,7 +1,11 @@
+* {
+    margin: 0;
+    padding: 0;
+}
 body {
     font-family: Arial, Helvetica, sans-serif;
+
 }
-#platno{
-    border: 1px solid black;
+.row {
     margin-left: 20%;
 }
