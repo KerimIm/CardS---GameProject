@@ -15,3 +15,4 @@ for (j = 0; j < 800; j+=160) {
     ctx.lineTo(800,j);
     ctx.stroke();
 }
+
