@@ -13,37 +13,50 @@ var P2Sum = 0;
 
 function igracNaPotezu(num){
     if (plays === 1){
-        alert("Igrac 1 je na potezu");
+        document.getElementById("p1").style.color="green";
+        document.getElementById("p2").style.color="red";
     }
     else {
-        alert("Igrac 2 je na potezu");
+        document.getElementById("p2").style.color="green";
+        document.getElementById("p1").style.color="red";
     }
 }
+igracNaPotezu(plays);
+
 
 function klikAndSum(id) { // na klik dodjeljuje vrijednosti sumi koje se nalaze na odredjenom dugmetu i ispisuje iste
     if (P1Sum === 0 || P2Sum === 0) {
         document.getElementById("sum1").innerHTML = P1Sum;
         document.getElementById("sum2").innerHTML = P2Sum;
     }
-    var num = (arr[id]);
-    igracNaPotezu(plays);
-    if (plays === 1) {
-        P1Sum += num;
-        document.getElementById("sum1").innerHTML = P1Sum;
+    if (P1Sum < 50 || P2Sum < 50){
 
+        var num = (arr[id]);
+        if (plays === 1) {
+            P1Sum += num;
+            plays *= -1;
+            igracNaPotezu(plays);
+            return document.getElementById("sum1").innerHTML = P1Sum;
+
+        }
+        if (plays === -1) {
+            P2Sum += num;
+            plays *= -1;
+            igracNaPotezu(plays);
+            return document.getElementById("sum2").innerHTML = P2Sum;
+        }
     }
-    if (plays === -1) {
-        P2Sum += num;
-        document.getElementById("sum2").innerHTML = P2Sum;
+    
+    if (P1Sum  >= 50 && P1Sum > P2Sum) {
+        return alert("p1 w");
     }
-    if (P1Sum >= 50) {
-        return alert("Igrac 1 je pobjednik");
+    else {
+        return alert("p2 w");
     }
-    if (P2Sum >= 50) {
-        return alert("Igrac 2 je pobjednik");
-    }
-    plays *= -1;
+    
+    
 }
+
 
 
 
