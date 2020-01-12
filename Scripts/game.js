@@ -53,8 +53,6 @@ function klikAndSum(id) { // na klik dodjeljuje vrijednosti sumi koje se nalaze 
     else {
         return alert("p2 w");
     }
-    
-    
 }
 
 
