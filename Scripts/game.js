@@ -29,6 +29,13 @@ function shuffleArray(arr) { // https://stackoverflow.com/questions/2450954/how-
 shuffleArray(arr);
 function switchElements(arr,val){
     var elem = arr.indexOf(val);
+    var randElem = generateRandomNumb(0,26);
+    while (arr[randElem] === 11 || arr[randElem] === 12){
+        randElem = generateRandomNumb(0,26);
+    }
+    var temp = arr[elem];
+    arr[elem] = arr[randElem];
+    arr[randElem] = temp;
     
 }
 function generateRandomNumb(min,max) { //generisanje random vrijednosti od 1 do 10
