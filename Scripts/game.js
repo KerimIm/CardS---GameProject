@@ -70,13 +70,13 @@ function highlight(id){ //funkcija koja mjenja boju broja u buttonu u bijelo i v
     cntnt.style.color = "white";
     window.setTimeout(function() { cntnt.style.color = origin; }, 1000);
 }
-
+if (P1Sum === 0 || P2Sum === 0) {
+    document.getElementById("sum1").innerHTML = P1Sum;
+    document.getElementById("sum2").innerHTML = P2Sum;
+}
 igracNaPotezu(plays);
 function klikAndSum(id) { // na klik dodjeljuje vrijednosti sumi koje se nalaze na odredjenom dugmetu i ispisuje iste
-    if (P1Sum === 0 || P2Sum === 0) {
-        document.getElementById("sum1").innerHTML = P1Sum;
-        document.getElementById("sum2").innerHTML = P2Sum;
-    }
+    
 
     var num = (arr[id]);
     if (plays === 1) { 
