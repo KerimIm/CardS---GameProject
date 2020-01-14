@@ -33,9 +33,9 @@ function switchElements(arr,id){ //switching between elements if value passed is
     while (arr[j] === 11 || arr[j] === 12) {
         j = generateRandomNumb(0,26)
     }
-    temp = arr[id]
+    temp = arr[id];
     document.getElementById(String(id)).innerHTML = arr[j];
-    document.getElementById(String(j)).innerHTML = arr[id];
+    document.getElementById(String(j)).innerHTML = temp;
     
 }
 function generateRandomNumb(min,max) { //generate random val from 1 to 10
@@ -86,7 +86,7 @@ function klikAndSum(id) { // adds value to sum on click and displays the value
         if (num === 11){
             plays *= -1;
             igracNaPotezu(plays);
-            switchElements(arr,id)
+            switchElements(arr,id);
             return document.getElementById("sum1").innerHTML = P1Sum * P1Sum;
         }
         else if (num === 12){
