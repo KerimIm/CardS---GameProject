@@ -27,15 +27,18 @@ function shuffleArray(arr) { // https://stackoverflow.com/questions/2450954/how-
     }
 }
 shuffleArray(arr);
-function switchElements(arr,val){
-    for (var i = arr.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = arr.indexOf(val);
-        arr[i] = arr[j];
-        arr[j] = temp;
+
+function switchElements(arr,id){ //switching between elements if value passed is 11(smile) or 12(angry) it switches that value with some other from the array
+    var j = generateRandomNumb(0,26);
+    while (arr[j] === 11 || arr[j] === 12) {
+        j = generateRandomNumb(0,26)
     }
+    temp = arr[id]
+    document.getElementById(String(id)).innerHTML = arr[j];
+    document.getElementById(String(j)).innerHTML = arr[id];
+    
 }
-function generateRandomNumb(min,max) { //generisanje random vrijednosti od 1 do 10
+function generateRandomNumb(min,max) { //generate random val from 1 to 10
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
@@ -44,7 +47,7 @@ for (var i = 0;i<25;i++){ // adding random values to buttons
     document.getElementById(String(i)).innerHTML = arr[i];
 }
 
-function winner(x) { //funkcija koja provjerava da li je jedan od igraca dosegao zbir od 50 bodova
+function winner(x) { //function which decides who won
     if (x >= 50) {
         return true;
     }
@@ -53,7 +56,7 @@ function winner(x) { //funkcija koja provjerava da li je jedan od igraca dosegao
     }
 }
 
-function igracNaPotezu(num){ //funkcija koja mjenja tj. oznacava pobjednika
+function igracNaPotezu(num){ //function for marking the current player
     if (plays === 1){
         document.getElementById("p1").style.color="green";
         document.getElementById("p2").style.color="black";
@@ -64,7 +67,7 @@ function igracNaPotezu(num){ //funkcija koja mjenja tj. oznacava pobjednika
     }
 }
 
-function highlight(id){ //funkcija koja mjenja boju broja u buttonu u bijelo i vraca nakon 1s na isto kako je bilo
+function highlight(id){ //changes button color to white when clicked and reverts it back to previous color
     var cntnt = document.getElementById(id);
     var origin = cntnt.style.color;
     cntnt.style.color = "white";
@@ -75,7 +78,7 @@ if (P1Sum === 0 || P2Sum === 0) {
     document.getElementById("sum2").innerHTML = P2Sum;
 }
 igracNaPotezu(plays);
-function klikAndSum(id) { // na klik dodjeljuje vrijednosti sumi koje se nalaze na odredjenom dugmetu i ispisuje iste
+function klikAndSum(id) { // adds value to sum on click and displays the value
     
 
     var num = (arr[id]);
@@ -83,12 +86,14 @@ function klikAndSum(id) { // na klik dodjeljuje vrijednosti sumi koje se nalaze 
         if (num === 11){
             plays *= -1;
             igracNaPotezu(plays);
+            switchElements(arr,id)
             return document.getElementById("sum1").innerHTML = P1Sum * P1Sum;
         }
         else if (num === 12){
             plays *= -1;
             P1Sum = 0;
             igracNaPotezu(plays);
+            switchElements(arr,id);
             return document.getElementById("sum1").innerHTML = P1Sum;
         }
         else {
@@ -102,12 +107,14 @@ function klikAndSum(id) { // na klik dodjeljuje vrijednosti sumi koje se nalaze 
         if (num === 11){
             plays *= -1;
             igracNaPotezu(plays);
+            switchElements(arr,id);
             return document.getElementById("sum2").innerHTML = P2Sum * P2Sum;
         }
         else if (num === 12){
             P2Sum = 0;
             plays *= -1;
             igracNaPotezu(plays);
+            switchElements(arr,id);
             return document.getElementById("sum2").innerHTML = P2Sum;
         }
         else {
