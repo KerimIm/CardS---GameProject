@@ -2,7 +2,6 @@ var plays = 1;
 var P1Sum = 0;
 var P2Sum = 0;
 var arr = [];
-var krajIgre = false;
 
 function generateRandomNumb(min,max) { //generate random val from 1 to 10
     return Math.floor(Math.random() * (max - min)) + min;
@@ -25,10 +24,10 @@ function generateArray(arr){
     }
     for (var j = 0; j < 8; j++){
         if (j < 4){
-            arr.push(11);
+            arr.push(11); // 11 represents :)
         }
         else {
-            arr.push(12);
+            arr.push(12); // 12 represents :(
         }
     }
     return arr;
@@ -36,13 +35,19 @@ function generateArray(arr){
 generateArray(arr);
 shuffleArray(arr);
 for (var i = 0;i<25;i++){ // adding random values to buttons
-    document.getElementById(String(i)).innerHTML = arr[i];
+    if (arr[i] === 11){
+        document.getElementById(String(i)).innerHTML = ':)';
+    } 
+    else if (arr[i] === 12) {
+        document.getElementById(String(i)).innerHTML = ':(';
+
+    }
+    else {
+        document.getElementById(String(i)).innerHTML = arr[i];
+    } 
 }
 
-
-
 function switchElements(arr,id){ //switching between elements if value passed is 11(smile) or 12(angry) it switches that value with some other from the array
-    console.log(arr[id]);
     var j = generateRandomNumb(0,25);
     while (arr[j] === 11 || arr[j] === 12) {
         j = generateRandomNumb(0,26)
@@ -52,7 +57,12 @@ function switchElements(arr,id){ //switching between elements if value passed is
     arr[id] = arr[j];
     arr[j] = temp;
     document.getElementById(String(id)).innerHTML = arr[id];
-    document.getElementById(String(j)).innerHTML = arr[j];
+    if (arr[j] === 11){
+    document.getElementById(String(j)).innerHTML = ':)';
+    }
+    else if (arr[j] === 12) {
+        document.getElementById(String(j)).innerHTML = ':(';
+    }
 }// it appears in some cases that function isn't working 
 
 function whoIsPlaying(num){ //function for marking the current player
@@ -67,10 +77,11 @@ function whoIsPlaying(num){ //function for marking the current player
 }
 
 function highlight(id){ //changes button color to white when clicked and reverts it back to previous color
-    var cntnt = document.getElementById(id);
+    var cntnt = document.getElementById(String(id));
     var origin = cntnt.style.color;
-    cntnt.style.color = "white";
+    cntnt.style.color = "black";
     window.setTimeout(function() { cntnt.style.color = origin; }, 1000);
+    window.setTimeout(function(){ klikAndSum(id); }, 1000);
 }
 if (P1Sum === 0 || P2Sum === 0) {
     document.getElementById("sum1").innerHTML = P1Sum;
@@ -119,22 +130,22 @@ function winner(x,y) { //function which decides who won
 
 whoIsPlaying(plays);
 function klikAndSum(id) { // adds value to sum on click and displays the value
-    var num = (arr[id]);
+    var num = arr[id];
     if (plays === 1) { 
         if (num === 11){
             P1Sum *= 2;
             plays *= -1;
-            switchElements(arr,id);
             whoIsPlaying(plays);
             winner(P1Sum,P2Sum);
+            switchElements(arr,id);
             return document.getElementById("sum1").innerHTML = P1Sum;
         }
         else if (num === 12){
             plays *= -1;
             P1Sum = 0;
-            switchElements(arr,id);
             whoIsPlaying(plays);
             winner(P1Sum,P2Sum);
+            switchElements(arr,id);
             return document.getElementById("sum1").innerHTML = P1Sum;
         }
         else {
@@ -146,20 +157,20 @@ function klikAndSum(id) { // adds value to sum on click and displays the value
         }
     }
     if (plays === -1) {
-        if (num === 11){
+        if (num === 11){ 
             P2Sum *= 2;
             plays *= -1;
-            switchElements(arr,id);
             whoIsPlaying(plays);
             winner(P1Sum,P2Sum);
+            switchElements(arr,id);
             return document.getElementById("sum2").innerHTML = P2Sum;
         }
         else if (num === 12){
             P2Sum = 0;
             plays *= -1;
-            switchElements(arr,id);
             whoIsPlaying(plays);
             winner(P1Sum,P2Sum);
+            switchElements(arr,id);
             return document.getElementById("sum2").innerHTML = P2Sum;
         }
         else {
@@ -171,11 +182,3 @@ function klikAndSum(id) { // adds value to sum on click and displays the value
         }
     }
 }
-
-/* if(winner(P1Sum,P2Sum)){
-    
-} */
-
-
-
-
