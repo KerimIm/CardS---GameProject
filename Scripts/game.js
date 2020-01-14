@@ -33,9 +33,11 @@ function switchElements(arr,id){ //switching between elements if value passed is
     while (arr[j] === 11 || arr[j] === 12) {
         j = generateRandomNumb(0,26)
     }
-    temp = arr[id];
     document.getElementById(String(id)).innerHTML = arr[j];
-    document.getElementById(String(j)).innerHTML = temp;
+    document.getElementById(String(j)).innerHTML = arr[id];
+    temp = arr[id];
+    arr[id] = arr[j];
+    arr[j] = temp;
     
 }
 function generateRandomNumb(min,max) { //generate random val from 1 to 10
