@@ -110,9 +110,105 @@ function reRun(){
     klikAndSum(id);
 }
 
-function hide(id){
-    var elm = document.getElementById(id);
-    elm.style.visibility = 'hidden';
+function switchNumbers(arr,id){ //switching between numbers 
+    var j = generateRandomNumb(0,25);
+    while (arr[j] === 11 || arr[j] === 12) {
+        j = generateRandomNumb(0,25)
+    }
+    temp = arr[id];
+    arr[id] = arr[j];
+    arr[j] = temp;
+    document.getElementById(String(id)).innerHTML = arr[id];
+    document.getElementById(String(j)).innerHTML = temp;
+}
+
+function clickCounter(id){
+    
+}
+
+function howLongItStays(arr,id){
+    var i;
+    var j;
+    var row = 0;
+    var col = 0;
+    var sum = 0;
+    if (id >= 0 && id <=4){
+        i = 0;
+        j = id;
+        for(i;i<=4;i++){
+            if (arr[i] !== 11 || arr[i] !== 12){
+                row += arr[i];
+            }
+            for(j;j<=arr.length;j+=5){
+                if (arr[j] !== 11 || arr[j] !== 12){
+                    col += arr[j];
+                }
+            }
+        }
+        return sum = row + col - arr[id];
+    }
+    else if (id >= 5 && id <=9)
+    {
+        i = 5;
+        j = id - 5;
+        for (i;i<=9;i++){
+            if (arr[i] !== 11 || arr[i] !== 12){
+                row += arr[i];
+            }
+            for(j;j<=arr.length;j+=5){
+                if (arr[j] !== 11 || arr[j] !== 12){
+                    col += arr[j];
+                }
+            }
+        }
+        return sum = row + col - arr[id];
+    }
+    else if (id >= 10 && id <= 14){
+        i = 10;
+        j = id - 10;
+        for (i;i<=14;i++){
+            if (arr[i] !== 11 || arr[i] !== 12){
+                row += arr[i];
+            }
+            for(j;j<=arr.length;j+=5){
+                if (arr[j] !== 11 || arr[j] !== 12){
+                    col += arr[j]
+                }
+            }
+        }
+        return sum = row + col - arr[id];
+    }
+    else if (id >= 15 && id <= 19)
+    {
+        i = 15;
+        j = id - 15;
+        for (i;i<=19;i++){
+            if (arr[i] !== 11 || arr[i] !== 12){
+                row += arr[i];
+            }
+            for(j;j<=arr.length;j+=5){
+                if (arr[j] !== 11 || arr[j] !== 12){
+                    col += arr[j];
+                }
+            }
+        }
+        return sum = row + col - arr[id];
+    }
+    else{
+        i = 20;
+        j = id - 20;
+        for (i;i<=24;i++){
+            if (arr[i] !== 11 || arr[i] !== 12){
+                row += arr[i];
+            }
+            for(j;j<=arr.length;j+=5){
+                if (arr[j] !== 11 || arr[j] !== 12){
+                    col += arr[j];
+                }
+            }
+        }
+        return sum = row + col - arr[id];
+    }
 }
 
 function winner(x,y) { //function which decides who won
