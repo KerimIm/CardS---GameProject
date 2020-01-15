@@ -36,10 +36,10 @@ generateArray(arr);
 shuffleArray(arr);
 for (var i = 0;i<25;i++){ // adding random values to buttons
     if (arr[i] === 11){
-        document.getElementById(String(i)).innerHTML = ':)';
+        document.getElementById(String(i)).innerHTML = String.fromCodePoint(0x1F603);
     } 
     else if (arr[i] === 12) {
-        document.getElementById(String(i)).innerHTML = ':(';
+        document.getElementById(String(i)).innerHTML = String.fromCodePoint(0x1F47F);
 
     }
     else {
@@ -58,12 +58,12 @@ function switchElements(arr,id){ //switching between elements if value passed is
     arr[j] = temp;
     document.getElementById(String(id)).innerHTML = arr[id];
     if (arr[j] === 11){
-    document.getElementById(String(j)).innerHTML = ':)';
+    document.getElementById(String(j)).innerHTML = String.fromCodePoint(0x1F603);
     }
     else if (arr[j] === 12) {
-        document.getElementById(String(j)).innerHTML = ':(';
+        document.getElementById(String(j)).innerHTML = String.fromCodePoint(0x1F47F);
     }
-}// it appears in some cases that function isn't working 
+}
 
 function whoIsPlaying(num){ //function for marking the current player
     if (plays === 1){
@@ -80,8 +80,8 @@ function highlight(id){ //changes button color to white when clicked and reverts
     var cntnt = document.getElementById(String(id));
     var origin = cntnt.style.color;
     cntnt.style.color = "black";
-    window.setTimeout(function() { cntnt.style.color = origin; }, 1000);
-    window.setTimeout(function(){ klikAndSum(id); }, 1000);
+    window.setTimeout(function() { cntnt.style.color = origin; }, 800);
+    window.setTimeout(function(){ klikAndSum(id); }, 800);
 }
 if (P1Sum === 0 || P2Sum === 0) {
     document.getElementById("sum1").innerHTML = P1Sum;
@@ -96,15 +96,28 @@ function reRun(){
     generateArray(arr);
     shuffleArray(arr);
     for (var i = 0;i<25;i++){ // adding random values to buttons
-        document.getElementById(String(i)).innerHTML = arr[i];
+        if (arr[i] === 11){
+            document.getElementById(String(i)).innerHTML = String.fromCodePoint(0x1F603);
+        } 
+        else if (arr[i] === 12) {
+            document.getElementById(String(i)).innerHTML = String.fromCodePoint(0x1F47F);
+    
+        }
+        else {
+            document.getElementById(String(i)).innerHTML = arr[i];
+        } 
     }
     klikAndSum(id);
 }
 
+function hide(id){
+    var elm = document.getElementById(id);
+    elm.style.visibility = 'hidden';
+}
+
 function winner(x,y) { //function which decides who won
     if (x >= 50) {
-        alert("Winner is player 1 and he has: " + P1Sum + " points" );
-        var conf = confirm("Do you want a rematch?!");
+        var conf = confirm("Player 1 won. Do you want a rematch?!");
         if (conf){
         plays *= 1;
         whoIsPlaying(plays);
@@ -115,8 +128,7 @@ function winner(x,y) { //function which decides who won
         }
     }
     else if (y >= 50) {
-        alert("Winner is player 2 and he has: " + P2Sum + " points" );
-        var conf = confirm("Do you want a rematch?!");
+        var conf = confirm("Player 2 won. Do you want a rematch?!");
         if (conf){
             plays *= 1;
             whoIsPlaying(plays);
@@ -127,6 +139,14 @@ function winner(x,y) { //function which decides who won
         }
     }
 }
+function displayScoreP1(plays,points){
+    if (plays === 1){
+        return document.getElementById("sum1").innerHTML = points;
+    }
+    else {
+        return document.getElementById("sum2").innerHTML = points;
+    }
+}
 
 whoIsPlaying(plays);
 function klikAndSum(id) { // adds value to sum on click and displays the value
@@ -134,51 +154,54 @@ function klikAndSum(id) { // adds value to sum on click and displays the value
     if (plays === 1) { 
         if (num === 11){
             P1Sum *= 2;
-            plays *= -1;
-            whoIsPlaying(plays);
-            winner(P1Sum,P2Sum);
+            displayScoreP1(plays,P1Sum);
             switchElements(arr,id);
-            return document.getElementById("sum1").innerHTML = P1Sum;
+            plays *= -1;
+            window.setTimeout(function(){ whoIsPlaying(plays); }, 500);
+            window.setTimeout(function(){ winner(P1Sum,P2Sum); }, 500);   
         }
         else if (num === 12){
-            plays *= -1;
             P1Sum = 0;
-            whoIsPlaying(plays);
-            winner(P1Sum,P2Sum);
+            displayScoreP1(plays,P1Sum);
             switchElements(arr,id);
-            return document.getElementById("sum1").innerHTML = P1Sum;
+            plays *= -1;
+            window.setTimeout(function(){ whoIsPlaying(plays); }, 500);
+            window.setTimeout(function(){ winner(P1Sum,P2Sum); }, 500);  
         }
         else {
             P1Sum += num;
+            displayScoreP1(plays,P1Sum);
             plays *= -1;
-            whoIsPlaying(plays);
-            winner(P1Sum,P2Sum);
-            return document.getElementById("sum1").innerHTML = P1Sum;   
+            window.setTimeout(function(){ whoIsPlaying(plays); }, 500);
+            window.setTimeout(function(){ winner(P1Sum,P2Sum); }, 500);  
         }
     }
-    if (plays === -1) {
+
+    else {
         if (num === 11){ 
             P2Sum *= 2;
+            displayScoreP1(plays,P2Sum);
             plays *= -1;
-            whoIsPlaying(plays);
-            winner(P1Sum,P2Sum);
+            window.setTimeout(function(){ whoIsPlaying(plays); }, 500);
+            window.setTimeout(function(){ winner(P1Sum,P2Sum); }, 500);  
             switchElements(arr,id);
-            return document.getElementById("sum2").innerHTML = P2Sum;
+            
         }
         else if (num === 12){
             P2Sum = 0;
+            displayScoreP1(plays,P2Sum);
             plays *= -1;
-            whoIsPlaying(plays);
-            winner(P1Sum,P2Sum);
+            window.setTimeout(function(){ whoIsPlaying(plays); }, 500);
+            window.setTimeout(function(){ winner(P1Sum,P2Sum); }, 500);  
             switchElements(arr,id);
-            return document.getElementById("sum2").innerHTML = P2Sum;
+            
         }
         else {
             P2Sum += num;
+            displayScoreP1(plays,P2Sum);
             plays *= -1;
-            whoIsPlaying(plays);
-            winner(P1Sum,P2Sum);
-            return document.getElementById("sum2").innerHTML = P2Sum;
+            window.setTimeout(function(){ whoIsPlaying(plays); }, 500);
+            window.setTimeout(function(){ winner(P1Sum,P2Sum); }, 500);  
         }
     }
 }
